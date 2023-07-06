@@ -1,5 +1,6 @@
 package com.dev.basecode.dto.example;
 
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +9,7 @@ import lombok.Setter;
 @Setter
 //@NoArgsConstructor
 //@AllArgsConstructor
-//@Builder
+@Builder
 @EqualsAndHashCode(callSuper = true)
 public class UpdateExampleDto extends CreateExampleDto {
 	
