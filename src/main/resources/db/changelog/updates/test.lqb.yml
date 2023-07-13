@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: create example table
+      author: diego.moya
+      preConditions:
+        - not:
+            - tableExists:
+                schemaName:

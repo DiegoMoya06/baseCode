@@ -1,0 +1,37 @@
+#
+#
+#spring:
+#  sql:
+#    init:
+#      platform: postgresql
+#  jpa:
+#    properties:
+#      jakarta:
+#        persistence:
+#          sharedCache:
+#            mode: UNSPECIFIED
+#      hibernate:
+#        default_schema:
+#
+
+  # DEVELOP PROPERTIES
+
+spring:
+  config:
+    activate:
+      on-profile: develop
+  security:
+    user:
+      name: root
+      password: admin
+      roles: manager
+#  devtools:
+#    restart:
+#      enabled: true
+#      additional-paths: src/main/java
+#      exclude: WEB-INF/**
+#      log-condition-evaluation-delta: false
+  liquibase:
+    contexts: 'exampleData'
+    parameters:
+      example:
