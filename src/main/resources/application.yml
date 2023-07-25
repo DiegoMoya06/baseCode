@@ -1,21 +1,66 @@
-#
-#
-#spring:
-#  sql:
-#    init:
-#      platform: postgresql
-#  jpa:
-#    properties:
-#      jakarta:
-#        persistence:
-#          sharedCache:
-#            mode: UNSPECIFIED
-#      hibernate:
-#        default_schema:
-#
+# Common properties
+
+spring:
+  profiles:
+    active: ${SERVER_PROFILES:develop}
+  sql:
+    init:
+      platform: postgresql
+  jpa:
+    properties:
+      jakarta:
+        persistence:
+          sharedCache:
+            mode: UNSPECIFIED
+      hibernate:
+        default_schema: ${DB_SCHEMA:basecode}
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          batch_size: 50
+        order_updates: true
+    open-in-view: false
+  datasource:
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME:basecodedb}?sslmode=${DB_SSL_MODE:allow}
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/changelog.yml
+    contexts: '!exampleData'
+    database-change-log-table: liquibase_databasechangelog
+    database-change-log-lock-table: liquibase_databasechangeloglock
+    parameters:
+      schema:
+        name: ${DB_SCHEMA:basecode}
+      database-change-log-table: liquibase_databasechangelog
+      database-change-log-lock-table: liquibase_databasechangeloglock
+      profile: ${SERVER_PROFILES:develop}
+      data-type:
+        id: uuid
+      column:
+        created: created
+        updated: updated
+        created-by: created_by
+        updated-by: updated_by
+  data:
+    rest:
+      base-path: /api
+
+management:
+  endpoint:
+    health:
+      show-details: when_authorized
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui
+
+
+---
 
   # DEVELOP PROPERTIES
-
 spring:
   config:
     activate:
@@ -25,13 +70,13 @@ spring:
       name: root
       password: admin
       roles: manager
-#  devtools:
-#    restart:
-#      enabled: true
-#      additional-paths: src/main/java
-#      exclude: WEB-INF/**
-#      log-condition-evaluation-delta: false
   liquibase:
     contexts: 'exampleData'
     parameters:
       example:
+        example-id:
+          - 457c2075-962e-4eff-aaf1-3cf94429ea92
+
+server:
+  port: 8080
+
