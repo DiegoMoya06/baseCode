@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - preConditions:
+      - onFail: HALT
+      - and:
+          - onFailMessage:
+              Parameter "schema.name" is NOT defined.
+          - changeLogPropertyDefined:
+              property: schema.name
+      - and:
+          - onFailMessage:
+              Parameter "data-type.id" is NOT defined.
+          - changeLogPropertyDefined:
+              property: data-type.id
+      - and:
+          - onFailMessage:
+              Parameter "column.created" is NOT defined.
+          - changeLogPropertyDefined:
+              property: column.created
+      - and:
+          - onFailMessage:
+              Parameter "column.updated" is NOT defined.
+          - changeLogPropertyDefined:
+              property: column.updated
+      - and:
+          - onFailMessage:
+              Parameter "column.created-by" is NOT defined.
+          - changeLogPropertyDefined:
+              property: column.created-by
+      - and:
+          - onFailMessage:
+              Parameter "column.updated-by" is NOT defined.
+          - changeLogPropertyDefined:
+              property: column.updated-by
+
+  - include:
+      file: updates/test.lqb.yml
