@@ -37,6 +37,7 @@ spring:
       profile: ${SERVER_PROFILES:develop}
       data-type:
         id: uuid
+        user-id: varchar(255)
       column:
         created: created
         updated: updated

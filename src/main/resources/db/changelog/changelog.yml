@@ -33,4 +33,6 @@ databaseChangeLog:
               property: column.updated-by
 
   - include:
-      file: updates/test.lqb.yml
+        file: updates/create-schema.lqb.yml
+  - include:
+      file: updates/example.lqb.yml

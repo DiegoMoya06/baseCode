@@ -1,0 +1,45 @@
+databaseChangeLog:
+  - changeSet:
+      id: create example table
+      author: diego.moya
+      preConditions:
+        - not:
+            - tableExists:
+                schemaName: ${schema.name}
+                tableName: example
+            - onFail: WARN
+            - onFailMessage: Table 'example' already exists!
+      changes:
+        - createTable:
+            schemaName: ${schema.name}
+            tableName: example
+            columns:
+              - column:
+                  name: id
+                  type: ${data-type.id}
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: code
+                  type: varchar(255)
+              - column:
+                  name: ${column.created}
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ${column.updated}
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ${column.created-by}
+                  type: ${data-type.user-id}
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ${column.updated-by}
+                  type: ${data-type.user-id}
+                  constraints:
+                    nullable: false
